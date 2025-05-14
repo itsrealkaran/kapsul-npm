@@ -1,0 +1,39 @@
+{
+  "buildCommand": "next build",
+  "outputDir": ".next",
+  "environmentVars": [
+    "NODE_ENV",
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_ANALYTICS_ID"
+  ],
+  "successIndicators": [
+    ".next/build-manifest.json",
+    ".next/server/pages/index.js"
+  ],
+  "preBuildCommands": [
+    "npm run lint",
+    "npm run test"
+  ],
+  "postBuildCommands": [
+    "npm run generate-sitemap",
+    "npm run optimize-images"
+  ],
+  "exclude": [
+    "node_modules",
+    ".git",
+    ".github",
+    "coverage",
+    "tests",
+    "test",
+    "*.log",
+    "*.md",
+    "src/**/*.test.js",
+    "src/**/*.spec.js"
+  ],
+  "include": [
+    "public",
+    ".next",
+    "package.json",
+    "next.config.js"
+  ]
+} 
