@@ -26,6 +26,7 @@ The `.kapsul.build.json` file supports the following options:
 | `postBuildCommands` | Array | Commands to run after the main build command |
 | `exclude` | Array | Glob patterns for files to exclude from deployment |
 | `include` | Array | Glob patterns for files to explicitly include in deployment |
+| `compressionFormat` | String | Compression format for deployment artifacts (zip, tar.gz, tar) |
 
 ## Example Configurations
 
@@ -40,7 +41,8 @@ The `.kapsul.build.json` file supports the following options:
   "preBuildCommands": ["npm run lint"],
   "postBuildCommands": ["npm run test"],
   "exclude": ["node_modules", ".git", "tests", "*.log"],
-  "include": []
+  "include": [],
+  "compressionFormat": "zip"
 }
 ```
 
@@ -55,7 +57,8 @@ The `.kapsul.build.json` file supports the following options:
   "preBuildCommands": ["npm run clean"],
   "postBuildCommands": ["npm run copy-assets"],
   "exclude": ["node_modules", ".git", "src", "tests"],
-  "include": ["public", "config"]
+  "include": ["public", "config"],
+  "compressionFormat": "tar.gz"
 }
 ```
 
@@ -112,6 +115,22 @@ Control exactly which files are included in your deployment:
   ]
 }
 ```
+
+### Compression Formats
+
+Kapsul supports multiple compression formats for deployment:
+
+- **zip**: Default for Next.js projects, good general-purpose compression
+- **tar.gz**: Better compression ratio, default for Node.js and Express projects
+- **tar**: Minimal compression, useful when you need to preserve file permissions
+
+```json
+{
+  "compressionFormat": "tar.gz"
+}
+```
+
+If not specified, Kapsul will automatically choose the optimal format based on your project type.
 
 ## Troubleshooting
 

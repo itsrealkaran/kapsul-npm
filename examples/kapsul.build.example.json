@@ -35,5 +35,6 @@
     ".next",
     "package.json",
     "next.config.js"
-  ]
+  ],
+  "compressionFormat": "zip"
 } 
