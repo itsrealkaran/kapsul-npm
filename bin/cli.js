@@ -1,7 +1,15 @@
 #!/usr/bin/env node
 
 const { program } = require('commander');
-const { login, logout, deploy, showConfig, updateConfig } = require('../lib/commands');
+const { 
+  login, 
+  logout, 
+  deploy, 
+  showConfig, 
+  updateConfig,
+  initCustomBuild,
+  build
+} = require('../lib/commands');
 const pkg = require('../package.json');
 
 program
@@ -66,6 +74,31 @@ program
       await updateConfig();
     } catch (error) {
       console.error('Error updating configuration:', error.message);
+      process.exit(1);
+    }
+  });
+
+// Build commands
+program
+  .command('build')
+  .description('Build your project')
+  .action(async () => {
+    try {
+      await build();
+    } catch (error) {
+      console.error('Build failed:', error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('build:init')
+  .description('Initialize a custom build configuration')
+  .action(async () => {
+    try {
+      await initCustomBuild();
+    } catch (error) {
+      console.error('Custom build initialization failed:', error.message);
       process.exit(1);
     }
   });
