@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { program } = require('commander');
-const { login, deploy } = require('../lib/commands');
+const { login, logout, deploy, showConfig, updateConfig } = require('../lib/commands');
 const pkg = require('../package.json');
 
 program
@@ -19,7 +19,7 @@ program
     }
   });
 
-// Additional commands
+// Login command
 program
   .command('login')
   .description('Login to Kapsul')
@@ -28,6 +28,44 @@ program
       await login();
     } catch (error) {
       console.error('Login failed:', error.message);
+      process.exit(1);
+    }
+  });
+
+// Logout command
+program
+  .command('logout')
+  .description('Logout from Kapsul')
+  .action(async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout failed:', error.message);
+      process.exit(1);
+    }
+  });
+
+// Config commands
+program
+  .command('config')
+  .description('Show current configuration')
+  .action(() => {
+    try {
+      showConfig();
+    } catch (error) {
+      console.error('Error showing configuration:', error.message);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('config:set')
+  .description('Update configuration settings')
+  .action(async () => {
+    try {
+      await updateConfig();
+    } catch (error) {
+      console.error('Error updating configuration:', error.message);
       process.exit(1);
     }
   });
